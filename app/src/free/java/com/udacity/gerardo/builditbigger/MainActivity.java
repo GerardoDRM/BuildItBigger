@@ -6,6 +6,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
@@ -15,6 +16,7 @@ import com.google.android.gms.ads.InterstitialAd;
 // Support for ads from https://github.com/googleads/googleads-mobile-android-examples/tree/master/doubleclick/InterstitialExample
 public class MainActivity extends AppCompatActivity {
     private InterstitialAd mInterstitialAd;
+    private ProgressBar spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,10 +37,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         requestAd();
+
+        spinner = (ProgressBar) findViewById(R.id.progressBar1);
     }
 
     private void startJokeTask() {
-        new EndpointsAsyncTask(this).execute();
+        new EndpointsAsyncTask(this, spinner).execute();
     }
 
     @Override

@@ -6,10 +6,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 
 
 
 public class MainActivity extends AppCompatActivity {
+    private ProgressBar spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,6 +19,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        spinner = (ProgressBar)findViewById(R.id.progressBar1);
+
 
     }
 
@@ -43,6 +47,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void tellJoke(View view){
-        new EndpointsAsyncTask(this).execute();
+        new EndpointsAsyncTask(this, spinner).execute();
     }
 }

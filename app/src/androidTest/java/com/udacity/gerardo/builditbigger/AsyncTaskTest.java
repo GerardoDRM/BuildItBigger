@@ -10,7 +10,7 @@ import java.util.concurrent.ExecutionException;
 public class AsyncTaskTest extends AndroidTestCase{
     public void testVerifyNull() {
         try {
-            assertNotNull(new EndpointsAsyncTask(getContext()).execute().get());
+            assertNotNull(new EndpointsAsyncTask(getContext(), null).execute().get());
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }

@@ -3,6 +3,8 @@ package com.udacity.gerardo.builditbigger;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
@@ -19,9 +21,19 @@ import java.io.IOException;
 public class EndpointsAsyncTask extends AsyncTask<String, Void, String> {
     private static JokeApi myApiService = null;
     private Context context;
+    private ProgressBar mSpinner;
 
-    public EndpointsAsyncTask(Context context) {
+    public EndpointsAsyncTask(Context context, ProgressBar spinner) {
         this.context = context;
+        this.mSpinner = spinner;
+    }
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+        if (mSpinner != null) {
+            mSpinner.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -48,6 +60,9 @@ public class EndpointsAsyncTask extends AsyncTask<String, Void, String> {
 
     @Override
     protected void onPostExecute(String result) {
+        if (mSpinner != null) {
+            mSpinner.setVisibility(View.GONE);
+        }
         Intent intent = new Intent(context, JokeActivity.class);
         intent.putExtra(JokeActivity.JOKE_KEY, result);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

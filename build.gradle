@@ -21,3 +21,17 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+task tieall(dependsOn: [":cloudjoke:appengineRun", ":app:connectedAndroidTest", ":cloudjoke:appengineStop"]) {
+    evaluationDependsOn ":cloudjoke"
+
+    project(":cloudjoke") {
+        appengine {
+            daemon true
+        }
+    }
+    doLast {
+        println "All Done"
+    }
+
+}
